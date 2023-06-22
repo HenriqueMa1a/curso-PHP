@@ -1,21 +1,7 @@
 <?php
-//Função
-
-function sacar($conta, $valorASacar) 
-{
-    if( $valorASacar > $conta['saldo']){
-        exibeMensagem('Você não tem fundos suficientes');
-    }else{
-        $conta['saldo']-= $valorASacar;
-    }
-    return $conta;
-}
-function exibeMensagem($mensagem){
-    echo $mensagem . PHP_EOL;
-}
-
+require 'aula4Funcoes.php'; 
 $contasCorrentes = [
-    '12345678910'=> [
+    '12345678910' => [
         'titular' => 'Henrique Maia',
         'saldo' => 10000
     ],
@@ -28,9 +14,33 @@ $contasCorrentes = [
         'saldo' => 100
     ]
 ];
-
+titularComLetrasMaisc($contasCorrentes['12345678910']);
 $contasCorrentes['12345678910'] = sacar($contasCorrentes['12345678910'], 5000);
+$contasCorrentes['12345678912'] = depositar($contasCorrentes['12345678912'], 350);
+unset($contasCorrentes['12345678911']);
+?>
 
-foreach ($contasCorrentes as $key => $conta) {
-    echo $key. ': ' . $conta['titular'] . PHP_EOL;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Contas Correntes</h1>
+
+    <dl>
+        <?php foreach ($contasCorrentes as $cpf => $conta) { ?>        
+        <dt>
+            <h3>
+            <?= $conta['titular'];?> - <?=$cpf;?>
+            </h3>
+        </dt>
+        <dt>
+           <?= $conta['saldo'];?>
+        </dt>
+        <?php } ?>
+    </dl>
+</body>
+</html>
